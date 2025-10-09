@@ -27,28 +27,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Configure prod AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4.0.1
-        with:
-          aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.REACT_APP_AWS_REGION }}
-      - run: sh ./initNpmrc.sh hei-store npm-hei-school 088312068315
-
-      - name: Configure preprod AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4.0.1
-        with:
-          aws-access-key-id: ${{ secrets.PREPROD_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.PREPROD_AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.REACT_APP_AWS_REGION }}
-          unset-current-credentials: true
-      - run: sh ./initNpmrc.sh hei-store npm-hei-lab 057045785189
-
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Cypress tests
-        run:  npm run --spec cypress/e2e/authentification.cy.js
+      - name: Run Cypress test
+        run:  npx cypress run --spec cypress/e2e/authentification.cy.js
 
       - name: Send status to Instatus
         if: ${{ (success() || failure()) && github.event_name == 'schedule' }}
