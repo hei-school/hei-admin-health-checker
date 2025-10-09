@@ -34,7 +34,7 @@ jobs:
         run:  npx cypress run --spec cypress/e2e/authentification.cy.js
 
       - name: Send status to Instatus
-        if: ${{ (success() || failure()) && github.event_name == 'schedule' }}
+        if: ${{ (success() || failure())}}
         run: |
           trigger=$(if [ '${{ job.status }}' == 'failure' ]; then echo 'down'; else echo 'up'; fi)
           echo "Trigger status is: $trigger"

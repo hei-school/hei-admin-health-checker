@@ -35,10 +35,10 @@ export const loginAs = (role) => {
 
       cy.get('input[type="password"]')
         .first()
-        .type(password + "{enter}");
+        .type(password+ "{enter}");
     }
   );
 
-  cy.contains("Dashboard").should("be.visible");
+  cy.contains("Dashboar").should("be.visible");
 };
 

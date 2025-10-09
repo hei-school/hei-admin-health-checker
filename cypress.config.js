@@ -11,10 +11,6 @@ export default defineConfig({
     experimentalSessionAndOrigin: true,
 	pageLoadTimeout:100000,
   },
-   retries: {
-    runMode: 4,
-    openMode: 0,
-  },
   env:{
         CYPRESS_STUDENT1_PASSWORD: process.env.CYPRESS_STUDENT1_PASSWORD,
         CYPRESS_TEACHER1_PASSWORD: process.env.CYPRESS_TEACHER1_PASSWORD,
