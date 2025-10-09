@@ -31,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: Run Cypress test
-        run:  npx cypress run --spec cypress/e2e/authentification.cy.js
+        run:  npx cypress run --spec cypress/e2e/announcement.cy.js
 
       - name: Send status to Instatus
         if: ${{ (success() || failure())}}
