@@ -39,6 +39,6 @@ export const loginAs = (role) => {
     }
   );
 
-  cy.contains("Dashboar").should("be.visible");
+  cy.contains("Dshboard").should("be.visible");
 };
 
