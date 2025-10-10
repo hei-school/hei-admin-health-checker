@@ -13,4 +13,7 @@ describe("authentification test", () => {
 	it("connect as a manager", () => {
 		loginAs("MANAGER");
 	});
+	it("connect as a monitor", ()=>{
+		loginAs("MONITOR")
+	})
 });
