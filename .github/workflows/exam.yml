@@ -1,0 +1,44 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: "0 6,14,22 * * *"
+env:
+  CYPRESS_STUDENT1_PASSWORD: ${{ secrets.CYPRESS_STUDENT1_PASSWORD }}
+  CYPRESS_TEACHER1_PASSWORD: ${{ secrets.CYPRESS_TEACHER1_PASSWORD }}
+  CYPRESS_MANAGER1_PASSWORD: ${{ secrets.CYPRESS_MANAGER1_PASSWORD }}
+  CYPRESS_ADMIN1_PASSWORD: ${{ secrets.CYPRESS_ADMIN1_PASSWORD }}
+  REACT_APP_AWS_REGION: eu-west-3
+
+  API_KEY: ${{ secrets.API_KEY }}
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Cypress test
+        run:  npx cypress run --spec cypress/e2e/exam.cy.js
+
+      - name: Send status to Instatus
+        if: ${{ (success() || failure())}}
+        run: |
+          trigger=$(if [ '${{ job.status }}' == 'failure' ]; then echo 'down'; else echo 'up'; fi)
+          echo "Trigger status is: $trigger"
+
+          curl -X POST "${{ vars.EXAM_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"trigger\": \"$trigger\"}"
