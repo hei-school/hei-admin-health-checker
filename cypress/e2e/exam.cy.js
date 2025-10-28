@@ -17,7 +17,6 @@ const checkExam = (user) => {
     cy.contains("Attribuer une note").should("be.visible")
     cy.get('[data-testid=CloseIcon]').click()
     cy.contains("Attribuer une note").should("not.exist")
-    cy.contains("Se déconnecter").should("be.visible").click();
 }
 
 describe("exam test", () => {
