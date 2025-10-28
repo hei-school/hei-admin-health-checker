@@ -16,6 +16,10 @@ export const loginAs = (role) => {
       email: "test+admin@hei.school",
       password: Cypress.env("CYPRESS_ADMIN1_PASSWORD"),
     },
+    MONITOR: {
+      email: "test+monitor@hei.school",
+      password: Cypress.env("CYPRESS_MONITOR1_PASSWORD"),
+    },
   };
 
   const credentials = credentialsMap[role];

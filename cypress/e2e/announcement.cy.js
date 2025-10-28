@@ -18,12 +18,11 @@ const loopTab = (list) => {
   cy.get('[data-testid="letter-list-wrapper"]').should("be.visible");
 }
 
-describe("annoucement test", () => {
-  it("test annoucement as an admin", () => {
-    loginAs("ADMIN");
+const checkAnnouncement = (list, user) => {
+    loginAs(user);
     cy.contains("Annonces").should("be.visible").click();
-    loopTab(list.admin_tab);
-    cy.contains(list.admin_tab[0]).click();
+    loopTab(list);
+    cy.contains(list[0]).click();
     cy.get('[data-testid="letter-list-wrapper"]').within(() => {
       cy.get(".MuiCard-root").first().click();
     });
@@ -31,45 +30,19 @@ describe("annoucement test", () => {
     cy.contains("Réaction mise à jour avec succès").should("be.visible");
     cy.get(".MuiCheckbox-root").first().click();
     cy.contains("Se déconnecter").should("be.visible").click()
-  });
+}
 
+describe("annoucement test", () => {
+  it("test annoucement as an admin", () => {
+    checkAnnouncement(list.admin_tab, "ADMIN")
+  });
   it("connect as a teacher", () => {
-    loginAs("TEACHER");
-    cy.contains("Annonces").should("be.visible").click();
-    loopTab(list.teacher_tab);
-    cy.contains(list.teacher_tab[0]).click()
-    cy.get('[data-testid="letter-list-wrapper"]').within(() => {
-      cy.get(".MuiCard-root").first().click();
-    });
-    cy.get(".MuiCheckbox-root").first().should("be.visible").click();
-    cy.contains("Réaction mise à jour avec succès").should("be.visible");
-    cy.get(".MuiCheckbox-root").first().click();
-    cy.contains("Se déconnecter").should("be.visible").click();
+    checkAnnouncement(list.teacher_tab, "TEACHER")
   });
   it("connect as a student", () => {
-    loginAs("STUDENT");
-    cy.contains("Annonces").should("be.visible").click();
-    loopTab(list.student_tab);
-    cy.contains(list.student_tab[0]).click();
-    cy.get('[data-testid="letter-list-wrapper"]').within(() => {
-      cy.get(".MuiCard-root").first().click();
-    });
-    cy.get(".MuiCheckbox-root").first().should("be.visible").click();
-    cy.contains("Réaction mise à jour avec succès").should("be.visible");
-    cy.get(".MuiCheckbox-root").first().click();
-    cy.contains("Se déconnecter").should("be.visible").click();
+    checkAnnouncement(list.student_tab, "STUDENT")
   }),
   it("connect as a manager", () => {
-    loginAs("MANAGER");
-    cy.contains("Annonces").should("be.visible").click();
-    loopTab(list.admin_tab)
-    cy.contains(list.admin_tab[0]).click();
-    cy.get('[data-testid="letter-list-wrapper"]').within(() => {
-      cy.get(".MuiCard-root").first().click();
-    });
-    cy.get(".MuiCheckbox-root").first().should("be.visible").click();
-    cy.contains("Réaction mise à jour avec succès").should("be.visible");
-    cy.get(".MuiCheckbox-root").first().click();
-    cy.contains("Se déconnecter").should("be.visible").click();
-    });
+    checkAnnouncement(list.admin_tab, "MANAGER")
+  });
 })
