@@ -23,3 +23,31 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+//
+
+import {credentialsMap} from "../e2e/utils.js"; 
+
+Cypress.Commands.add('loginAs', (role) =>{
+  const credentials = credentialsMap[role];
+
+  cy.visit("https://preprod.admin.hei.school/login");
+
+  cy.get('[data-testid="casdoor-login-btn"]').click();
+
+  cy.origin(
+    "https://numer.casdoor.com",
+    { args: credentials },
+    ({ email, password }) => {
+      cy.get('input[placeholder*="identifiant"]')
+        .first()
+        .should("be.visible")
+        .type(email);
+
+      cy.get('input[type="password"]')
+        .first()
+        .type(password+ "{enter}");
+    }
+  );
+
+  cy.contains("Dashboard").should("be.visible");
+})

@@ -1,5 +1,3 @@
-import { loginAs } from "./utils";
-
 const list = {
   admin_tab: [
     "Tous",
@@ -19,7 +17,7 @@ const loopTab = (list) => {
 }
 
 const checkAnnouncement = (list, user) => {
-    loginAs(user);
+    cy.loginAs(user);
     cy.contains("Annonces").should("be.visible").click();
     loopTab(list);
     cy.contains(list[0]).click();

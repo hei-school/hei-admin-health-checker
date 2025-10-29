@@ -1,19 +1,17 @@
-import { loginAs } from "./utils";
-
 describe("authentification test", () => {
 	it("connect as an admin", () => {
-		loginAs("ADMIN");
+		cy.loginAs("ADMIN");
 	}),
 	it("connect as a teacher", () => {
-		loginAs("TEACHER");
+		cy.loginAs("TEACHER");
 	}),
 	it("connect as a student", () => {
-	loginAs("STUDENT");
+	  cy.loginAs("STUDENT");
 	}),
 	it("connect as a manager", () => {
-		loginAs("MANAGER");
+		cy.loginAs("MANAGER");
 	});
 	it("connect as a monitor", ()=>{
-		loginAs("MONITOR")
+		cy.loginAs("MONITOR")
 	})
 });

@@ -1,7 +1,5 @@
-import { loginAs } from "./utils";
-
 const checkExam = (user) => {
-  loginAs(user);
+  cy.loginAs(user);
   cy.contains("Examens").should("be.visible").click();
     cy.get('[data-testid="exam-card"]').first().click();
     cy.contains("Détails de l'examen").should("be.visible");

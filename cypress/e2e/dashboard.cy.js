@@ -1,5 +1,3 @@
-import { loginAs } from "./utils";
-
 const greetings = [
   "Bonjour Admin",
   "Bon après-midi Admin",
@@ -21,7 +19,7 @@ const buttons = [
 
 describe("AdminWelcome test", () => {
   it("test AdminWelcome as an admin", () => {
-    loginAs("ADMIN");
+    cy.loginAs("ADMIN");
     cy.contains("Bienvenue").should("be.visible").click();
 
     greetings.forEach((text) => {
@@ -47,21 +45,21 @@ describe("AdminWelcome test", () => {
   });
 
   it("test AdminWelcome as a teacher", () => {
-    loginAs("TEACHER");
+    cy.loginAs("TEACHER");
     cy.contains("Bienvenue").should("be.visible").click();
     sections.forEach((section) => cy.contains(section).should("be.visible"));
     cy.contains("Se déconnecter").should("be.visible").click();
   });
 
   it("test AdminWelcome as a student", () => {
-    loginAs("STUDENT");
+    cy.loginAs("STUDENT");
     cy.contains("Bienvenue").should("be.visible").click();
     sections.forEach((section) => cy.contains(section).should("be.visible"));
     cy.contains("Se déconnecter").should("be.visible").click();
   });
 
   it("test AdminWelcome as a manager", () => {
-    loginAs("MANAGER");
+    cy.loginAs("MANAGER");
     cy.contains("Bienvenue").should("be.visible").click();
     sections.forEach((section) => cy.contains(section).should("be.visible"));
     cy.contains("Se déconnecter").should("be.visible").click();
