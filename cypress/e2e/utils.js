@@ -20,3 +20,10 @@ export const credentialsMap = {
     password: Cypress.env("CYPRESS_MONITOR1_PASSWORD"),
   },
 };
+
+
+export const loopTab = (tabs) => {
+  tabs.forEach((tab) => {
+    cy.contains(tab).should("be.visible")
+  })
+}

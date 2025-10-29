@@ -1,4 +1,3 @@
-
 name: Run Tests
 
 on:
@@ -11,6 +10,7 @@ env:
   CYPRESS_TEACHER1_PASSWORD: ${{ secrets.CYPRESS_TEACHER1_PASSWORD }}
   CYPRESS_MANAGER1_PASSWORD: ${{ secrets.CYPRESS_MANAGER1_PASSWORD }}
   CYPRESS_ADMIN1_PASSWORD: ${{ secrets.CYPRESS_ADMIN1_PASSWORD }}
+  CYPRESS_MONITOR1_PASSWORD: ${{ secrets.CYPRESS_MONITOR1_PASSWORD }}
   REACT_APP_AWS_REGION: eu-west-3
 
   API_KEY: ${{ secrets.API_KEY }}
@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Run Cypress test
-        run:  npx cypress run --spec cypress/e2e/announcement.cy.js
+        run:  npx cypress run --spec cypress/e2e/profil.cy.js
 
       - name: Send status to Instatus
         if: ${{ (success() || failure())}}
@@ -40,6 +40,6 @@ jobs:
           trigger=$(if [ '${{ job.status }}' == 'failure' ]; then echo 'down'; else echo 'up'; fi)
           echo "Trigger status is: $trigger"
 
-          curl -X POST "${{ vars.ANNOUNCEMENT_WEBHOOK_URL }}" \
+          curl -X POST "${{ vars.PROFIL_WEBHOOK_URL }}" \
             -H "Content-Type: application/json" \
             -d "{\"trigger\": \"$trigger\"}"
