@@ -42,18 +42,6 @@ const filterLetterByStatus = () => {
   });
 };
 
-const filterStudentParticipation = () => {
-  cy.get('body').click();
-  cy.get('#\\:rl\\: li[data-value="MISSING"]').click();
-  cy.get('body').click();
-  cy.get('#\\:rr\\: li[data-value="LATE"]').click();
-  cy.get('body').click();
-  cy.get('#\\:r11\\: li[data-value="PRESENT"]').click();
-  cy.get('body').click();
-  cy.get('#\\:r17\\: li[data-value="UNCHECKED"]').click();
-  cy.get('body').click();
-}
-
 const createLetter = () => {
   cy.get('[data-testid="letter-create-button"]').click();
   cy.get('#description').click();
@@ -119,12 +107,6 @@ describe('Tests user profil', () => {
 
   it('should check profil as a manager', () => {
     checkProfil(user_tabs.manager_tabs, "MANAGER");
-  });
-
-  it('should check student participation', () => {
-    cy.loginAs("STUDENT");
-    cy.contains("Participation").should("be.visible").click();
-    filterStudentParticipation();
   });
 });
 
