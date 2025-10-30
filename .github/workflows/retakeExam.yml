@@ -40,6 +40,6 @@ jobs:
           trigger=$(if [ '${{ job.status }}' == 'failure' ]; then echo 'down'; else echo 'up'; fi)
           echo "Trigger status is: $trigger"
 
-          curl -X POST "${{ vars.DASHBOARD_WEBHOOK_URL }}" \
+          curl -X POST "${{ vars.RETAKE_EXAM_WEBHOOK_URL }}" \
             -H "Content-Type: application/json" \
             -d "{\"trigger\": \"$trigger\"}"
