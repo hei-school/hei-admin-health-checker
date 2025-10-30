@@ -25,9 +25,9 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
 
-import {credentialsMap} from "../e2e/utils.js"; 
+import { credentialsMap } from "../e2e/utils.js"
 
-Cypress.Commands.add('loginAs', (role) =>{
+Cypress.Commands.add('loginAs', (role) => {
   const credentials = credentialsMap[role];
 
   cy.visit("https://preprod.admin.hei.school/login");
@@ -45,7 +45,7 @@ Cypress.Commands.add('loginAs', (role) =>{
 
       cy.get('input[type="password"]')
         .first()
-        .type(password+ "{enter}");
+        .type(password + "{enter}");
     }
   );
 

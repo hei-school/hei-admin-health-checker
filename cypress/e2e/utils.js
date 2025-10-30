@@ -21,7 +21,6 @@ export const credentialsMap = {
   },
 };
 
-
 export const loopTab = (tabs) => {
   tabs.forEach((tab) => {
     cy.contains(tab).should("be.visible")
