@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 6,14,22 * * *"
 env:
   CYPRESS_STUDENT1_PASSWORD: ${{ secrets.CYPRESS_STUDENT1_PASSWORD }}
   CYPRESS_TEACHER1_PASSWORD: ${{ secrets.CYPRESS_TEACHER1_PASSWORD }}
@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Run Cypress test
-        run:  npx cypress run --spec cypress/e2e/authentification.cy.js
+        run:  npx cypress run --spec cypress/e2e/profil.cy.js
 
       - name: Send status to Instatus
         if: ${{ (success() || failure())}}
@@ -40,6 +40,6 @@ jobs:
           trigger=$(if [ '${{ job.status }}' == 'failure' ]; then echo 'down'; else echo 'up'; fi)
           echo "Trigger status is: $trigger"
 
-          curl -X POST "${{ vars.AUTHENTIFICATION_WEBHOOK_URL }}" \
+          curl -X POST "${{ vars.PROFIL_WEBHOOK_URL }}" \
             -H "Content-Type: application/json" \
             -d "{\"trigger\": \"$trigger\"}"
