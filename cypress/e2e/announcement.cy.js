@@ -28,13 +28,14 @@ const checkAnnouncement = (tabs, user) => {
 const createAnnoucement = (creator, option) => {
   const date = new Date();
   const annoucement = `Test annonces pour tous le monde par ${creator} le ${date.toString()}`;
+  const title = `${creator} annonce test`;
   cy.get('#ha-menu div.css-tm1l5h').click();
   cy.get('[data-testid="menu-list-action"] button.css-1yxmbwk').click();
   cy.get('[data-testid="create-button"]').click();
   cy.get('[name="title"]').click();
-  cy.get('[name="title"]').type('Admin annonce test ');
+  cy.get('[name="title"]').type(title);
   cy.get('#scope').click()
-  cy.get('[role="listbox"]').contains(`${option}`).click()
+  cy.get('[role="listbox"]').contains(option).click()
   cy.get('.toastui-editor-ww-container')
     .click()
     .type(annoucement);
