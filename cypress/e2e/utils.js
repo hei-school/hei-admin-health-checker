@@ -1,6 +1,6 @@
 export const credentialsMap = {
   STUDENT: {
-    email: "test+ryan@hei.school",
+    email: "test+manitra@mail.hei.school",
     password: Cypress.env("CYPRESS_STUDENT1_PASSWORD"),
   },
   TEACHER: {
