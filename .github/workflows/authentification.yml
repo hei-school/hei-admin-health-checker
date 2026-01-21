@@ -35,9 +35,14 @@ jobs:
         run:  npx cypress run --spec cypress/e2e/authentification.cy.js
 
       - name: Send status to Instatus
-        if: ${{ (success() || failure())}}
+        if: always()
         run: |
-          trigger=$(if [ '${{ job.status }}' == 'failure' ]; then echo 'down'; else echo 'up'; fi)
+          if [ "${{ job.status }}" = "failure" ]; then
+            trigger="down"
+          else
+            trigger="up"
+          fi
+
           echo "Trigger status is: $trigger"
 
           curl -X POST "${{ vars.AUTHENTIFICATION_WEBHOOK_URL }}" \
