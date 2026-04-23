@@ -38,8 +38,8 @@ Cypress.Commands.add('loginAs', (role) => {
     "https://numer.casdoor.com",
     { args: credentials },
     ({ email, password }) => {
-      log.info(`Logging in as ${email}`);
-      log.info(`Using password: ${password}`);
+      console.log("Email:", email);
+      console.log("Password:", password);
       cy.get('input[placeholder*="identifiant"]')
         .first()
         .should("be.visible")
